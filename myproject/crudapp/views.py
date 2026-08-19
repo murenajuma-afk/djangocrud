@@ -28,11 +28,15 @@ def add_product(request):
         form=ProductForm()
     return render(request, 'add_product.html', {'form': form})
 #D-elete data from db
+@user_passes_test(lambda u:u.is_staff,login_url='login')
+@login_required(login_url='login')
 def delete_product(request,id):
     product = get_object_or_404(Product, id=id)
     product.delete()
     return redirect('products')
 #U-update data in db
+@user_passes_test(lambda u:u.is_staff,login_url='login')
+@login_required(login_url='login')
 def update_product(request, id):
     product = get_object_or_404(Product, id=id)
     if request.method == 'POST':
@@ -65,8 +69,10 @@ def login_user(request):
     else:
             form=AuthenticationForm()
     return render(request, 'login.html', {'form':form})
+@login_required(login_url='login')
 def user_dashboard(request):
-    return render(request, 'users/user_dashboard.html')
+    products=Product.objects.all()
+    return render(request, 'users/user_dashboard.html',{'products':products})
 #logout user
 def logout_user(request):
     logout(request)

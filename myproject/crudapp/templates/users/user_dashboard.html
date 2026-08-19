@@ -4,5 +4,26 @@
 <div class="container">
     <h1>User Dashboard</h1>
     <h3>welcome {{user.username}}</h3>
+    <div class="row">
+        {%for prod in products%}
+        <div class="col-md-4 mb-4">
+            <div class="card product-card h-100">
+                <img src="{{prod.image.url}}" alt="product ima+ge">
+                <div class="card-body">
+                    <h5 class="card-title">{{prod.name}}</h++5>
+                    <p class="card-text">{{prod.description}}</p>
+                    <div class="mt-auto d-flex justify-content-betweebn align-items-center">
+                    <strong>ksh{{prod.price}}</strong>
+                    <a class="btn btn-outline-primary">view</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        {%endfor%}
+    </div>
 </div>
+
 {%endblock%}
